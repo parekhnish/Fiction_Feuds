@@ -1,0 +1,15 @@
+*****DATA CLEANING*****
+
+- Make a note of all UPPERCASE words.. ??
+
+
+
+***** HELPFULNESS - HOW TO USE IT *****
+
+
+
+
+*****SYNSETS*****
+
+- Match Synsets to given word i.e. synset word == given word
+- Check for Empty Synsets
