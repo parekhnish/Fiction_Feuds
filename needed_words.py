@@ -4,6 +4,27 @@ from nltk.corpus import sentiwordnet as swn
 ###############################################################################################################################################
 
 '''
+<<<helpRatio>>>
+Returns the float form of the helpfulness of the helpRatio
+
+PARAMETERS: Helpfulness of the review (in the original String Form)
+RETURN:     Float value of the helpfulness
+'''
+
+def helpRatio(help):
+
+    help = help.strip(' \n')
+    parts = help.split('/')
+
+    if float(parts[1])==0:  # If the denominator is 0, then
+        return 0            #                Return 0
+
+    else:
+        return (float(parts[0])/float(parts[1]))
+
+###############################################################################################################################################
+
+'''
 Load data from the file created by 'create_all_data.py'
 '''
 all_data = np.load("all_data.npy")
@@ -16,7 +37,7 @@ Append the above list with a 2-list, with the second part containing the appropr
 LOTR_BoxedSet = []
 
 for data in all_data:
-    if data["book_name"]==" The Lord of the Rings - Boxed Set" and data["score"]<=2:
+    if (data["book_name"]==" The Chronicles of Narnia :  the Lion, the Witch, and the Wardrobe" or data["book_name"]==" The Chronicles of Narnia Boxed Set") and data["score"]<=3 and helpRatio(data["help"])>=0.5:
         for word in data["review_tokens"]:
             if word[1]=="JJ" or word[1]=="JJR" or word[1]=="JJS":   #-------------------------------------------------------- Adjectives
                 LOTR_BoxedSet.append([word[0],'a'])
@@ -67,4 +88,5 @@ LOTR_BoxedSet_Synset_negWords.sort(key=lambda x:x.neg_score(), reverse=True)
 
 
 for word in LOTR_BoxedSet_Synset_negWords:
-    print word
+    if word.neg_score()>=0.125:
+        print word.synset.name().split('.')[0]
